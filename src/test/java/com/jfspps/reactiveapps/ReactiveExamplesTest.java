@@ -16,12 +16,14 @@ public class ReactiveExamplesTest {
     Person sam = new Person("Sam", "Axe");
     Person jesse = new Person("Jesse", "Porter");
 
+    // testing the operation of the Publishers mono and flux
+
     @Test
     public void monoTests() throws Exception {
-        //create new person mono
+        // create new person mono
         Mono<Person> personMono = Mono.just(michael);
 
-        //get person object from mono publisher
+        // get person object from mono publisher
         Person person = personMono.block();
 
         // output name
@@ -33,6 +35,8 @@ public class ReactiveExamplesTest {
         //create new person mono
         Mono<Person> personMono = Mono.just(fiona);
 
+        // note that the chain of methods does not execute until the block() method is called
+        // i.e. we map each person with map() (just as we would apply stream() to a Java Set)
         PersonCommand command = personMono
                 .map(person -> { //type transformation
                     return new PersonCommand(person);
@@ -54,6 +58,7 @@ public class ReactiveExamplesTest {
         log.info(samAxe.sayMyName()); //throws NPE
     }
 
+    // handle Publishers with more than one object in the stream
     @Test
     public void fluxTest() throws Exception {
 
@@ -78,6 +83,8 @@ public class ReactiveExamplesTest {
 
         Flux<Person> people = Flux.just(michael, fiona, sam, jesse);
 
+        // notice how this runs non-blocking, the test terminates before susbscribe() terminates and so it appears that
+        // there are no Persons in 'people'; see fluxTestDelay to print output with the help of CountDownLatch
         people.delayElements(Duration.ofSeconds(1))
                 .subscribe(person -> log.info(person.sayMyName()));
 
@@ -94,6 +101,7 @@ public class ReactiveExamplesTest {
                 .doOnComplete(countDownLatch::countDown)
                 .subscribe(person -> log.info(person.sayMyName()));
 
+        // force the test to wait for doOnComplete() to finish
         countDownLatch.await();
 
     }

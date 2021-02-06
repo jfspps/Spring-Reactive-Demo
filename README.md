@@ -13,3 +13,5 @@ The link between the Publisher and Subscriber is a `Subscription` interface. Thi
 The processing stage is handled by the `Processor` interface and is both a Subscriber and Publisher in character.
 
 The Publisher offers a Subscription. The subscriber then requests to subscribe to the subscription. This initiates a reactive stream between the Subscriber and Publisher (via the Subscription). The flow rate is characterised by a 'back pressure' whereby the Subscriber is only fed as much data as it needs and signals to the Publisher how much to send through a back-pressure mechanism. The Subscriber sends messages which the Publisher can monitor.
+
+The reader is directed to the [unit tests](./src/test/java/com/jfspps/reactiveapps/ReactiveExamplesTest.java) for a demonstration of reactive programming.
