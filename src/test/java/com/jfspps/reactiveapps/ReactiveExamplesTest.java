@@ -24,6 +24,7 @@ public class ReactiveExamplesTest {
         Mono<Person> personMono = Mono.just(michael);
 
         // get person object from mono publisher
+        // Here, person becomes a subscriber to the publisher personMono because block() triggers a subscription
         Person person = personMono.block();
 
         // output name
@@ -37,6 +38,7 @@ public class ReactiveExamplesTest {
 
         // note that the chain of methods does not execute until the block() method is called
         // i.e. we map each person with map() (just as we would apply stream() to a Java Set)
+        // As above, command becomes a subscriber to personMono when block() is called
         PersonCommand command = personMono
                 .map(person -> { //type transformation
                     return new PersonCommand(person);
