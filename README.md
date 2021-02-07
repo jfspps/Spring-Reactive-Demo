@@ -4,7 +4,7 @@ This example was followed along from SpringframeworkGuru. Below is a little abou
 
 A `Publisher` object (given by an interface) is a provider of sequenced elements to one or more `Subscriber` objects (which consume elements). Such sequences are referred to as 'streams' of data. The construction of each element is implemented via a Factory pattern and can be called more than once. Subscribers can only subscribe to one Publisher.
 
-Publisher has subscribe() which starts streaming data. A Publisher with zero or one element in the stream is termed a `Mono`. A Publisher with zero or more than one element is referred to as a `Flux`.
+Publisher has subscribe() which starts streaming data. A Publisher with zero or one element in the stream is termed a `Mono`. A Publisher with zero or more than one element is referred to as a `Flux`. Think of `Mono` and `Flux` as sets, where the former size is zero or one and the latter is zero or >1.
 
 Subscriber has four methods: onSubscribe(), onNext(), onError() and onComplete(). 
 
